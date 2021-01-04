@@ -29,7 +29,8 @@ public class AdminLogin extends JFrame{
         adminLoginView = this;
         setContentPane(adminLoginPanel);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(600, 600));
+        setPreferredSize(new Dimension(300, 200));
+        loginController.loadAdmins();
         pack();
 
         btnReturn.addActionListener(new ActionListener()
@@ -44,12 +45,17 @@ public class AdminLogin extends JFrame{
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = txtUsername.getText();
-                String password = txtPassword.getText();
-                if(loginController.checkAdmin(username, password))
+                boolean canLogin;
+                canLogin = loginController.checkAdmin(txtUsername.getText(), txtPassword.getText());
+                if (canLogin)
                 {
                     viewController.loadGUI();
                     viewController.changeView(adminLoginView, viewController.adminPage);
+                }
+                else {
+                    JOptionPane.showMessageDialog(TillView.getFrames()[0], "Username and/or password are incorrect. Please try again.", "Login Failed.", JOptionPane.ERROR_MESSAGE);
+                    txtUsername.setText("");
+                    txtPassword.setText("");
                 }
             }
         });

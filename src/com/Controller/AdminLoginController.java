@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class AdminLoginController
 {
+    //Method for loading in the admin details from the file and creating all admin objects, which are then stored in the admin database
     public void loadAdmins()
     {
         try {
@@ -34,6 +35,8 @@ public class AdminLoginController
             JOptionPane.showMessageDialog(TillView.getFrames()[0], "Admin details could not be loaded. Sign-in will be unavailable. Please speak to a Systems Admin.", "Error: File Exception.", JOptionPane.ERROR_MESSAGE);
         }
     }
+    //Method for checking whether the admin details exists. Runs through all the admin objects in the AdminDatabase and checks each object if the password AND username matches for one
+    //If both match, it logs the user in, if one or both credentials are wrong it simply skips it. If no match is found, error dialog is opened within the form.
     public boolean checkAdmin(String username, String password)
     {
         boolean exists = false;
@@ -41,14 +44,13 @@ public class AdminLoginController
         {
             String fileUsername = AdminDatabase.getInstance().adminDetails.get(user).getUsername();
             String filePassword = AdminDatabase.getInstance().adminDetails.get(user).getPassword();
-            if(fileUsername == username && filePassword == password)
+            if(fileUsername.matches(username)  && filePassword.matches(password))
             {
                 exists = true;
                 break;
             }
             else
             {
-                JOptionPane.showMessageDialog(TillView.getFrames()[0], "Username and/or password are incorrect. Please try again.", "Login Failed.", JOptionPane.ERROR_MESSAGE);
                 exists = false;
             }
 

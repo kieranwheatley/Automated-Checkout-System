@@ -21,9 +21,9 @@ public class UserViewController
     public void changeView(JFrame currentView, JFrame newView)
     {
         loadGUI();
+        newView.setVisible(true);
         currentView.setVisible(false);
         newView.setLocation(currentView.getLocation());
-        newView.setSize(currentView.getSize());
         newView.setVisible(true);
     }
 }

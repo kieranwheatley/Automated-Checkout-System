@@ -4,6 +4,7 @@ package com.View;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 import com.Controller.StockController;
 import com.Controller.UserViewController;
@@ -27,27 +28,35 @@ public class TillView extends JFrame
     private DefaultListModel<String> availableStockList;
     private DefaultListModel<String> basketList;
     private int selectedItem;
+    private TillView tillView;
 
 
     public TillView()
     {
-        availableStockList = new DefaultListModel<String>();
-        basketList = new DefaultListModel<String>();
+        //Declarations
+        tillView = this;
         UserViewController viewController = new UserViewController();
         StockController stockControl = new StockController();
+        stockControl.loadStock();
+
+        availableStockList = new DefaultListModel<String>();
+        basketList = new DefaultListModel<String>();
+
+
+        //Frame-related
         setContentPane(JPanelBackground);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 600));
-        stockControl.loadStock();
         stockControl.displayStock(availableStockList, JListAvailable);
         pack();
+
 
         btnAdmin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                availableStockList.clear();
                 viewController.loadGUI();
-                viewController.changeView(viewController.till,viewController.adminLogin);
+                viewController.changeView(tillView, viewController.adminLogin);
+                tillView.setVisible(false);
             }
         });
         btnManualSelect.addActionListener(new ActionListener() {
