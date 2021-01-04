@@ -1,6 +1,8 @@
 package com.Model;
 
 
+import java.util.ArrayList;
+
 public class Product
 {
     private String name;
@@ -15,7 +17,9 @@ public class Product
 
     private int productCode;
 
-    public Product(String name, double buyPrice, double salePrice, int stockLevel, int minimumOrderLevel, int productCode)
+    private ArrayList<Integer> barcodes;
+
+    public Product(String name, double buyPrice, double salePrice, int stockLevel, int minimumOrderLevel, int productCode, ArrayList<Integer> barcodes)
     {
         this.name = name;
         this.buyPrice = buyPrice;
@@ -23,6 +27,7 @@ public class Product
         this.stockLevel = stockLevel;
         this.minimumOrderLevel = minimumOrderLevel;
         this.productCode = productCode;
+        this.barcodes = barcodes;
     }
 
     public String getName() {
@@ -71,6 +76,14 @@ public class Product
 
     public void setProductCode(int productCode) {
         this.productCode = productCode;
+    }
+
+    public ArrayList<Integer> getBarcodes() {
+        return barcodes;
+    }
+
+    public void setBarcodes(ArrayList<Integer> barcodes) {
+        this.barcodes = barcodes;
     }
 
     public String availableStockInfo()

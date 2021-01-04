@@ -3,7 +3,6 @@ package com.View;
 //Imports
 import java.awt.*;
 import java.awt.event.*;
-import java.rmi.server.ExportException;
 import javax.swing.*;
 
 import com.Controller.StockController;
@@ -24,15 +23,15 @@ public class TillView extends JFrame
     private JList JListAvailable;
     private JList JListBasket;
     private JScrollPane JScrollAvailableStock;
-    private AdminLoginView adminLogin;
-    private DefaultListModel<String> list;
+    private AdminLogin adminLogin;
+    private DefaultListModel<String> availableStockList;
     private DefaultListModel<String> basketList;
     private int selectedItem;
 
 
     public TillView()
     {
-        list = new DefaultListModel<String>();
+        availableStockList = new DefaultListModel<String>();
         basketList = new DefaultListModel<String>();
         UserViewController viewController = new UserViewController();
         StockController stockControl = new StockController();
@@ -40,13 +39,13 @@ public class TillView extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 600));
         stockControl.loadStock();
-        stockControl.displayStock(list, JListAvailable);
+        stockControl.displayStock(availableStockList, JListAvailable);
         pack();
 
         btnAdmin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                list.clear();
+                availableStockList.clear();
                 viewController.loadGUI();
                 viewController.changeView(viewController.till,viewController.adminLogin);
             }
@@ -60,7 +59,7 @@ public class TillView extends JFrame
                     selectedItem = JListAvailable.getSelectedIndex();
                     stockControl.addProductToBasket(selectedItem);
                     stockControl.displayBasket(basketList, JListBasket);
-                    stockControl.displayStock(list, JListAvailable);
+                    stockControl.displayStock(availableStockList, JListAvailable);
                     stockControl.priceCalculation();
                     lblTotalCost.setText("Total Cost: £" + String.valueOf(BasketDatabase.getInstance().getTotalCost()));
                 }
