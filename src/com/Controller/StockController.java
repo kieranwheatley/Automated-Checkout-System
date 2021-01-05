@@ -4,8 +4,7 @@ import com.Model.StockDatabase;
 import com.Model.BasketDatabase;
 import com.View.TillView;
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -63,6 +62,28 @@ public class StockController
             e.printStackTrace();
         }
     }
+    public void saveStock()
+    {
+
+
+        try{
+            //Setting up the filepath and input stream
+            File outputData = new File("src/resources/stock.txt");
+            PrintWriter dataWriter = new PrintWriter(outputData);
+            for (Product product: StockDatabase.getInstance().stock) {
+                dataWriter.println(product.getName());
+                dataWriter.println(String.valueOf(product.getBuyPrice()));
+                dataWriter.println(String.valueOf(product.getSalePrice()));
+                dataWriter.println(String.valueOf(product.getStockLevel()));
+                dataWriter.println(String.valueOf(product.getMinimumOrderLevel()));
+                dataWriter.println(String.valueOf(product.getProductCode()));
+            }
+            dataWriter.close();
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
     //Displaying the product available on the TillView form for manual selection of items.
     public void displayStock(DefaultListModel<String> defaultListModel, JList jList) {
         defaultListModel.clear();
@@ -88,6 +109,7 @@ public class StockController
         if (StockDatabase.getInstance().stock.get(item).getStockLevel() > 0)
         {
             // !--- NEED TO CHANGE THIS - DO NOT REMOVE FROM DATABASE UNTIL PURCHASED ---!
+            //!!______ NEED TO CHANGE, TAKE ITEM FROM BARCODE ARRAYLIST, NOT PRODUCT DATABASE!!!_________!!
             BasketDatabase.getInstance().basket.add(StockDatabase.getInstance().stock.get(item));
             BasketDatabase.getInstance().basket.remove(item);
             BasketDatabase.getInstance().basket.get(item).setStockLevel(BasketDatabase.getInstance().basket.get(item).getStockLevel() - 1);

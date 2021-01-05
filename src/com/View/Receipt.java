@@ -1,6 +1,7 @@
 package com.View;
 
 import com.Controller.PaymentController;
+import com.Controller.ReceiptController;
 import com.Controller.StockController;
 import com.Controller.UserViewController;
 import com.Model.BasketDatabase;
@@ -10,9 +11,12 @@ import java.awt.*;
 
 public class Receipt extends JFrame{
     private JPanel JPanelReceipt;
+    private JTextArea txtReceiptArea;
+    private JButton btnClose;
     private Receipt receipt;
     private UserViewController viewController;
     private BasketDatabase basketDatabase;
+    private ReceiptController receiptController;
 
 
     public Receipt()
@@ -20,12 +24,16 @@ public class Receipt extends JFrame{
         receipt = this;
         viewController = new UserViewController();
         basketDatabase = new BasketDatabase();
+        receiptController = new ReceiptController();
 
 
         //Frame-related
         setContentPane(this.JPanelReceipt);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(350, 200));
+        setPreferredSize(new Dimension(500, 400));
+        receiptController.printReceipt(txtReceiptArea);
         pack();
+
+
     }
 }

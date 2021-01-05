@@ -33,6 +33,7 @@ public class AdminPanel extends JFrame
     private JLabel lblAddAdmin;
     private JButton btnReturn;
     private JLabel lblUser;
+    private JButton button7;
 
 
     public AdminPanel()

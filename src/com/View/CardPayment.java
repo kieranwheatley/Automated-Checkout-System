@@ -1,10 +1,13 @@
 package com.View;
 
+import com.Controller.PaymentController;
 import com.Controller.UserViewController;
 import com.Model.BasketDatabase;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CardPayment extends JFrame{
     private JPanel JPanelCard;
@@ -13,6 +16,7 @@ public class CardPayment extends JFrame{
     private JLabel lblAcceptDecline;
     private CardPayment cardPayment;
     private UserViewController viewController;
+    private PaymentController paymentController;
 
 
 
@@ -20,9 +24,23 @@ public class CardPayment extends JFrame{
     {
         cardPayment = this;
         viewController = new UserViewController();
+        paymentController = new PaymentController();
         setContentPane(this.JPanelCard);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(400, 150));
+        setTitle("Card Payment");
         pack();
+        btnAccept.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                paymentController.verifyCard(cardPayment);
+            }
+        });
+        btnDecline.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                paymentController.cardDeclined(cardPayment);
+            }
+        });
     }
 }
