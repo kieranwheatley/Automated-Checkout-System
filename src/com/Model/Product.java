@@ -1,6 +1,9 @@
 package com.Model;
 
 
+import sun.dc.pr.PRError;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Product
@@ -17,9 +20,11 @@ public class Product
 
     private int productCode;
 
-    private ArrayList<Integer> barcodes;
+    //By containing a list of it's own objects (the main product holding a list of individual objects that represent one unit of stock each),
+    //the composite pattern is implemented as the group of objects (the one specific product i.e. apple) are all treated the same
+    private ArrayList<Product> barcodes;
 
-    public Product(String name, double buyPrice, double salePrice, int stockLevel, int minimumOrderLevel, int productCode, ArrayList<Integer> barcodes)
+    public Product(String name, double buyPrice, double salePrice, int stockLevel, int minimumOrderLevel, int productCode, ArrayList<Product> barcodes)
     {
         this.name = name;
         this.buyPrice = buyPrice;
@@ -28,6 +33,15 @@ public class Product
         this.minimumOrderLevel = minimumOrderLevel;
         this.productCode = productCode;
         this.barcodes = barcodes;
+    }
+    public Product(String name, double buyPrice, double salePrice, int stockLevel, int minimumOrderLevel, int productCode)
+    {
+        this.name = name;
+        this.buyPrice = buyPrice;
+        this.salePrice = salePrice;
+        this.stockLevel = stockLevel;
+        this.minimumOrderLevel = minimumOrderLevel;
+        this.productCode = productCode;
     }
 
     public String getName() {
@@ -78,17 +92,18 @@ public class Product
         this.productCode = productCode;
     }
 
-    public ArrayList<Integer> getBarcodes() {
+    public ArrayList<Product> getBarcodes() {
         return barcodes;
     }
 
-    public void setBarcodes(ArrayList<Integer> barcodes) {
+    public void setBarcodes(ArrayList<Product> barcodes) {
         this.barcodes = barcodes;
     }
 
     public String availableStockInfo()
     {
-        String available = (name + " | Price: £" + salePrice + " | Available stock: " + stockLevel);
+        DecimalFormat toPound = new DecimalFormat("#0.00");
+        String available = (name + " | Price: £" + toPound.format(salePrice) + " | Available stock: " + stockLevel);
         return available;
     }
     public String inBasket()

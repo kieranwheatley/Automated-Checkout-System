@@ -1,5 +1,6 @@
 package com.View;
 import com.Controller.AdminLoginController;
+import com.Controller.AdminPanelController;
 import com.Controller.UserViewController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,12 +22,16 @@ public class AdminLogin extends JFrame{
     private JButton btnLogin;
     private JTextField txtPassword;
     private AdminLogin adminLoginView;
+    private AdminPanelController adminController;
+    private DefaultListModel<String> lowStock;
 
     public AdminLogin()
     {
         UserViewController viewController = new UserViewController();
         AdminLoginController loginController = new AdminLoginController();
+        adminController = new AdminPanelController();
         adminLoginView = this;
+        lowStock = new DefaultListModel<String>();
         setContentPane(adminLoginPanel);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(300, 200));
@@ -51,9 +56,10 @@ public class AdminLogin extends JFrame{
                 {
                     viewController.loadGUI();
                     viewController.changeView(adminLoginView, viewController.adminPage);
+                    adminController.checkStockLevels(lowStock);
                 }
                 else {
-                    JOptionPane.showMessageDialog(TillView.getFrames()[0], "Username and/or password are incorrect. Please try again.", "Login Failed.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(adminLoginView.getFrames()[0], "Username and/or password are incorrect. Please try again.", "Login Failed.", JOptionPane.ERROR_MESSAGE);
                     txtUsername.setText("");
                     txtPassword.setText("");
                 }

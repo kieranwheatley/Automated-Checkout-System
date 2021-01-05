@@ -23,6 +23,9 @@ public class TillView extends JFrame
     private JLabel lblTotalCost;
     private JList JListAvailable;
     private JList JListBasket;
+    private JLabel lblDateTime;
+    private JTextField textField1;
+    private JScrollPane scroll;
     private JScrollPane JScrollAvailableStock;
     private AdminLogin adminLogin;
     private DefaultListModel<String> availableStockList;
@@ -46,8 +49,9 @@ public class TillView extends JFrame
         //Frame-related
         setContentPane(JPanelBackground);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(600, 600));
+        setPreferredSize(new Dimension(650, 600));
         stockControl.displayStock(availableStockList, JListAvailable);
+        lblDateTime.setText(new Date().toString());
         pack();
 
 
@@ -71,8 +75,16 @@ public class TillView extends JFrame
                     stockControl.displayStock(availableStockList, JListAvailable);
                     stockControl.priceCalculation();
                     lblTotalCost.setText("Total Cost: £" + String.valueOf(BasketDatabase.getInstance().getTotalCost()));
+                    btnPayment.setEnabled(true);
                 }
                 catch (Exception e1){}
+            }
+        });
+        btnPayment.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewController.loadGUI();
+                viewController.changeView(tillView, viewController.paymentScreen);
             }
         });
     }

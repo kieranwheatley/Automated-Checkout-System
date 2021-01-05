@@ -29,15 +29,26 @@ public class StockController
                 int minimumOrderLevel = Integer.parseInt(filereader.nextLine());
                 int productCode = Integer.parseInt(filereader.nextLine());
                 int barcode;
-                ArrayList<Integer> barcodes = new ArrayList<Integer>();
-                //Create a barcode for EACH of the product in stock. Take the product code and add it's index to create a unique barcode for individual products.
-                for (int codes = 1; codes <= stockLevel; codes++)
-                {
-                    barcode = productCode + codes;
-                    barcodes.add(barcode);
-                }
-                //Once all data for a product is read in and barcodes are generated, create a Product object
+                ArrayList<Product> barcodes = new ArrayList<Product>();
+                //Create a temporary product class, this is the MAIN object
                 Product tempProduct = new Product(name, buyPrice, salePrice, stockLevel, minimumOrderLevel, productCode, barcodes);
+                //Create a barcode for EACH of the product in stock. Take the product code and add it's index to create a unique barcode for individual products.
+                for (int i = 1; i <= stockLevel; i++)
+                {
+                    //For each item of stock we have for this product, set the product code to increase by one
+                    productCode = productCode + i;
+                    //Then create another object, which will have a unique product code
+                    Product individualProducts = new Product(name, buyPrice, salePrice, stockLevel, minimumOrderLevel, productCode);
+                    //Store this in a new temporary ArrayList
+                    ArrayList<Product> temp = new ArrayList<Product>();
+                    //Get the initial object's ArrayList and copy into the temp ArrayList
+                    temp = tempProduct.getBarcodes();
+                    //Add the new individual item to the ArrayList
+                    temp.add(individualProducts);
+                    //Set the initial objects ArrayList to the temp one, which now contains the extra item
+                    tempProduct.setBarcodes(temp);
+                }
+
                 //Add the newly created Product object to the Stock Database for access within the till
                 StockDatabase.getInstance().stock.add(tempProduct);
             }
@@ -76,6 +87,7 @@ public class StockController
     {
         if (StockDatabase.getInstance().stock.get(item).getStockLevel() > 0)
         {
+            // !--- NEED TO CHANGE THIS - DO NOT REMOVE FROM DATABASE UNTIL PURCHASED ---!
             BasketDatabase.getInstance().basket.add(StockDatabase.getInstance().stock.get(item));
             BasketDatabase.getInstance().basket.remove(item);
             BasketDatabase.getInstance().basket.get(item).setStockLevel(BasketDatabase.getInstance().basket.get(item).getStockLevel() - 1);
@@ -90,7 +102,7 @@ public class StockController
     {
         double itemPrice = 0.00;
         double totalPrice = 0.00;
-        DecimalFormat pound = new DecimalFormat("##.00");
+        DecimalFormat pound = new DecimalFormat("#0.00");
         for (int item = 0; item < BasketDatabase.getInstance().basket.size(); item++)
         {
             itemPrice = BasketDatabase.getInstance().basket.get(item).getSalePrice();

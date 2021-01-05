@@ -4,16 +4,16 @@ import java.util.List;
 
 public final class AdminDatabase
 {
-    private static AdminDatabase single_instance = null;
+    private static AdminDatabase INSTANCE = null;
     public List<Admin> adminDetails = new ArrayList<Admin>();
     public Integer holder = 0;
 
     public static AdminDatabase getInstance()
     {
-        if (single_instance == null)
+        if (INSTANCE == null)
         {
-            single_instance = new AdminDatabase();
+            INSTANCE = new AdminDatabase();
         }
-        return single_instance;
+        return INSTANCE;
     }
 }

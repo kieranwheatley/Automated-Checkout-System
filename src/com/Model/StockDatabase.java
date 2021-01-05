@@ -4,16 +4,16 @@ import java.util.List;
 
 public final class StockDatabase
 {
-    private static StockDatabase single_instance = null;
+    private static StockDatabase INSTANCE = null;
     public List<Product> stock = new ArrayList<Product>();
     public Integer holder = 0;
 
     public static StockDatabase getInstance()
     {
-        if (single_instance == null)
+        if (INSTANCE == null)
         {
-            single_instance = new StockDatabase();
+            INSTANCE = new StockDatabase();
         }
-        return single_instance;
+        return INSTANCE;
     }
 }
