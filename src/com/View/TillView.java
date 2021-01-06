@@ -4,6 +4,7 @@ package com.View;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import com.Controller.StockController;
@@ -30,7 +31,7 @@ public class TillView extends JFrame
     private AdminLogin adminLogin;
     private DefaultListModel<String> availableStockList;
     private DefaultListModel<String> basketList;
-    private int selectedItem;
+    private int selectedItemIndex;
     private TillView tillView;
 
 
@@ -40,8 +41,8 @@ public class TillView extends JFrame
         tillView = this;
         UserViewController viewController = new UserViewController();
         StockController stockControl = new StockController();
-        //stockControl.loadStock();
 
+        DecimalFormat pound = new DecimalFormat("#0.00");
         availableStockList = new DefaultListModel<String>();
         basketList = new DefaultListModel<String>();
 
@@ -69,12 +70,12 @@ public class TillView extends JFrame
             {
                 try
                 {
-                    selectedItem = JListAvailable.getSelectedIndex();
-                    stockControl.addProductToBasket(selectedItem);
+                    selectedItemIndex = JListAvailable.getSelectedIndex();
+                    stockControl.addProductToBasket(selectedItemIndex);
                     stockControl.displayBasket(basketList, JListBasket);
                     stockControl.displayStock(availableStockList, JListAvailable);
                     stockControl.priceCalculation();
-                    lblTotalCost.setText("Total Cost: £" + String.valueOf(BasketDatabase.getInstance().getTotalCost()));
+                    lblTotalCost.setText("Total Cost: £" + pound.format(BasketDatabase.getInstance().getTotalCost()));
                     btnPayment.setEnabled(true);
                 }
                 catch (Exception e1){}

@@ -1,4 +1,5 @@
 package com.View;
+import com.Controller.StockController;
 import com.Controller.UserViewController;
 
 import java.awt.*;
@@ -11,35 +12,35 @@ import javax.swing.JPanel;
 public class AdminPanel extends JFrame
 {
     private AdminPanel adminView;
+    private StockController stockController;
     private JPanel adminViewPanel;
     private JLabel lblHeader;
-    private JList lstStock;
     private JPanel pnlRightSide;
     private JLabel lblOptions;
-    private JLabel lblAddProduct;
-    private JButton button1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JLabel lblOrder;
-    private JLabel lblEditProduct;
-    private JLabel lblRemoveProduct;
-    private JLabel lblAcceptDelivery;
-    private JLabel lblAddAdmin;
+    private JButton addProductButton;
+    private JButton orderStockButton;
+    private JButton updateProductButton;
+    private JButton removeProductButton;
+    private JButton processDeliveryButton;
+    private JButton createAdminButton;
     private JButton btnReturn;
     private JLabel lblUser;
-    private JButton button7;
+    private JButton btnReorder;
+    private JLabel lblLowStock;
+    private JList lstStock;
+    private DefaultListModel<String> lowStockList;
 
 
     public AdminPanel()
     {
         UserViewController viewController = new UserViewController();
         adminView = this;
+        stockController = new StockController();
         setContentPane(adminViewPanel);
+        lowStockList = new DefaultListModel<String>();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(600, 350));
+        setPreferredSize(new Dimension(650, 400));
+        stockController.displayLowStock(lowStockList, lstStock);
         pack();
         //Return button
         btnReturn.addActionListener(new ActionListener()
@@ -49,6 +50,20 @@ public class AdminPanel extends JFrame
             {
                 viewController.loadGUI();
                 viewController.changeView(adminView, viewController.till);
+            }
+        });
+        addProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewController.loadGUI();
+                viewController.changeView(adminView, viewController.addProduct);
+            }
+        });
+        updateProductButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewController.loadGUI();
+                viewController.changeView(adminView, viewController.editProduct);
             }
         });
     }

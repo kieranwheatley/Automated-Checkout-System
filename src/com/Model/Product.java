@@ -23,6 +23,7 @@ public class Product
     //By containing a list of it's own objects (the main product holding a list of individual objects that represent one unit of stock each),
     //the composite pattern is implemented as the group of objects (the one specific product i.e. apple) are all treated the same
     private ArrayList<Product> barcodes;
+    DecimalFormat pound = new DecimalFormat("#0.00");
 
     public Product(String name, double buyPrice, double salePrice, int stockLevel, int minimumOrderLevel, int productCode, ArrayList<Product> barcodes)
     {
@@ -88,6 +89,19 @@ public class Product
         return productCode;
     }
 
+    public Product getProduct()
+    {
+        return this;
+    }
+
+    public void addProduct(Product adding)
+    {
+        barcodes.add(adding);
+    }
+    public void removeProduct(Product removing)
+    {
+        barcodes.remove(removing);
+    }
     public void setProductCode(int productCode) {
         this.productCode = productCode;
     }
@@ -102,14 +116,16 @@ public class Product
 
     public String availableStockInfo()
     {
-        DecimalFormat toPound = new DecimalFormat("#0.00");
-        String available = (name + " | Price: £" + toPound.format(salePrice) + " | Available stock: " + stockLevel);
+        String available = (name + " | Price: £" + pound.format(salePrice) + " | Available stock: " + stockLevel);
         return available;
     }
     public String inBasket()
     {
-        String inBasket = (name + " | Price £" + salePrice);
+        String inBasket = (name + " | Price £" + pound.format(salePrice));
         return inBasket;
     }
 
+
+    public void setBarcodes() {
+    }
 }

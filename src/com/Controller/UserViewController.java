@@ -15,6 +15,9 @@ public class UserViewController
     public CashPayment cashPayment;
     public CardPayment cardPayment;
     public Receipt receipt;
+    //public AddEditProduct addEditProduct;
+    public AddProduct addProduct;
+    public EditProduct editProduct;
 
     //Create new views
     public void loadGUI()
@@ -31,6 +34,9 @@ public class UserViewController
         cashPayment = new CashPayment();
         cardPayment = new CardPayment();
         receipt = new Receipt();
+        //addEditProduct = new AddEditProduct();
+        addProduct = new AddProduct();
+        editProduct = new EditProduct();
     }
     //Method to change visible page to selected one
     public void changeView(JFrame currentView, JFrame newView)

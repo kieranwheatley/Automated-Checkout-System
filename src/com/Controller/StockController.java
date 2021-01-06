@@ -5,6 +5,7 @@ import com.Model.BasketDatabase;
 import com.View.TillView;
 import javax.swing.*;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -101,6 +102,18 @@ public class StockController
 
         jList.setModel(defaultListModel);
     }
+    public void displayLowStock(DefaultListModel<String> lowStockList, JList stockView)
+    {
+        int lowItemAmount = 0;
+        lowStockList.clear();
+        for (Product product : StockDatabase.getInstance().stock) {
+            if (product.getStockLevel() < product.getMinimumOrderLevel())
+            {
+                lowStockList.add(lowStockList.size(), "Product: " + product.getName() + " | Stock Remaining: " + product.getStockLevel() );
+            }
+        }
+        stockView.setModel(lowStockList);
+    }
     //Add the selected item manually to the basket
     public void addProductToBasket(Integer item)
     {
@@ -108,9 +121,13 @@ public class StockController
         {
             // !--- NEED TO CHANGE THIS - DO NOT REMOVE FROM DATABASE UNTIL PURCHASED ---!
             //!!______ NEED TO CHANGE, TAKE ITEM FROM BARCODE ARRAYLIST, NOT PRODUCT DATABASE!!!_________!!
-            BasketDatabase.getInstance().basket.add(StockDatabase.getInstance().stock.get(item));
-            BasketDatabase.getInstance().basket.remove(item);
-            BasketDatabase.getInstance().basket.get(item).setStockLevel(BasketDatabase.getInstance().basket.get(item).getStockLevel() - 1);
+            int lastIndex = StockDatabase.getInstance().stock.get(item).getStockLevel() - 1;
+            ArrayList<Product> temp = StockDatabase.getInstance().stock.get(item).getBarcodes();
+            Product tempProduct = temp.get(lastIndex);
+            temp.remove(item);
+            StockDatabase.getInstance().stock.get(item).setBarcodes(temp);
+            BasketDatabase.getInstance().basket.add(tempProduct);
+            StockDatabase.getInstance().stock.get(item).setStockLevel(lastIndex);
         }
         else
             {
