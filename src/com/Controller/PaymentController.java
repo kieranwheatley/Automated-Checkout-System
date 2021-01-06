@@ -3,14 +3,14 @@ package com.Controller;
 import com.Model.BasketDatabase;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+;
 import java.text.DecimalFormat;
 
 public class PaymentController {
 
     UserViewController viewController = new UserViewController();
     DecimalFormat pound = new DecimalFormat("#0.00");
+    StockController stockController = new StockController();
 
 
     public String displayTotal() {
@@ -43,6 +43,7 @@ public class PaymentController {
         int yesNoReceipt = JOptionPane.showConfirmDialog(null, "Would you like a receipt?", "Card authorised, payment successful!.", JOptionPane.YES_NO_OPTION);
         if (yesNoReceipt == JOptionPane.YES_OPTION) {
             BasketDatabase.getInstance().setAmountPaid(BasketDatabase.getInstance().getTotalCost());
+            stockController.saveStock();
             viewController.loadGUI();
             viewController.changeView(current, viewController.receipt);
 

@@ -1,8 +1,6 @@
 package com.View;
 
-import com.Controller.PaymentController;
 import com.Controller.ReceiptController;
-import com.Controller.StockController;
 import com.Controller.UserViewController;
 import com.Model.BasketDatabase;
 

@@ -1,4 +1,5 @@
 package com.Controller;
+import com.Model.StockDatabase;
 import com.View.*;
 import javax.swing.*;
 
@@ -18,6 +19,11 @@ public class UserViewController
     //Create new views
     public void loadGUI()
     {
+        StockController stockController = new StockController();
+        if (StockDatabase.getInstance().stock.isEmpty())
+        {
+            stockController.loadStock();
+        }
         till = new TillView();
         adminLogin = new AdminLogin();
         adminPage = new AdminPanel();

@@ -40,7 +40,7 @@ public class TillView extends JFrame
         tillView = this;
         UserViewController viewController = new UserViewController();
         StockController stockControl = new StockController();
-        stockControl.loadStock();
+        //stockControl.loadStock();
 
         availableStockList = new DefaultListModel<String>();
         basketList = new DefaultListModel<String>();

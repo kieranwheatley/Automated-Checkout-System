@@ -64,8 +64,6 @@ public class StockController
     }
     public void saveStock()
     {
-
-
         try{
             //Setting up the filepath and input stream
             File outputData = new File("src/resources/stock.txt");

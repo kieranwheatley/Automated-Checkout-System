@@ -30,7 +30,7 @@ public final class BasketDatabase
     public String generateHeader()
     {
         String dateTime = new Date().toString();
-        String receiptHeader = ("Food and Stuff Superstores\n1 Mutley Plain\n" + dateTime);/*this is where we need all item names and prices */
+        String receiptHeader = ("Food and Stuff Superstores\n1 Mutley Plain\n" + dateTime);
         return receiptHeader;
 
     }
@@ -42,7 +42,7 @@ public final class BasketDatabase
         receipt.add(0, header);
         for (int i = 1; i <= basket.size(); i++) {
             int index = i - 1;
-            String itemInBasket = "\n" + basket.get(index).inBasket();
+            String itemInBasket = "\n" + basket.get(index).getName() + " | £" + pound.format(basket.get(index).getSalePrice());
             receipt.add(i, itemInBasket);
         }
         int index = basket.size();
@@ -53,9 +53,6 @@ public final class BasketDatabase
 
     public String generateFooter()
     {
-        //Cash footer = ("\n\nTotal: £" + totalCost + "\nCash Paid: £" + amountPaid + "\nChange Given: £" + change);
-        //Card footer = ("\n\nTotal: £" + totalCost + "\nPaid amount via Card.");
-
         //Math.abs makes what would be a negative value into a positive, for correctly displaying change given
         double change = Math.abs(totalCost - amountPaid);
         String footer;
@@ -66,7 +63,7 @@ public final class BasketDatabase
         }
         else if (BasketDatabase.getInstance().isPaidWithCard() == false)
         {
-            return ("\n\nTotal: £" + totalCost + "\nCash Paid: £" + amountPaid + "\nChange Given: £" + change);
+            return ("\n\nTotal: £" + pound.format(totalCost) + "\nCash Paid: £" + pound.format(amountPaid) + "\nChange Given: £" + pound.format(change));
         }
 
         return "footer";

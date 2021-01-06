@@ -6,6 +6,7 @@ import javax.swing.*;
 
 public class ReceiptController {
     private PaymentController paymentController;
+
     public void printReceipt(JTextArea receiptDisplay){
         paymentController = new PaymentController();
         ThreadLocal<String> receiptThread = new ThreadLocal<>();
