@@ -8,6 +8,7 @@ public class PaymentController {
     UserViewController viewController = new UserViewController();
     DecimalFormat pound = new DecimalFormat("#0.00");
     StockController stockController = new StockController();
+    AudioController audioController = new AudioController();
 
 
     public String displayTotal() {
@@ -28,6 +29,8 @@ public class PaymentController {
             if (yesNoReceipt == JOptionPane.YES_OPTION) {
                 viewController.loadGUI();
                 viewController.changeView(current, viewController.receipt);
+                audioController = new AudioController();
+                audioController.receiptPrinting();
             } else if (yesNoReceipt == JOptionPane.NO_OPTION) {
                 viewController.loadGUI();
                 viewController.changeView(current, viewController.till);
@@ -42,6 +45,8 @@ public class PaymentController {
             stockController.saveStock();
             viewController.loadGUI();
             viewController.changeView(current, viewController.receipt);
+            audioController = new AudioController();
+            audioController.receiptPrinting();
 
         }
         else if(yesNoReceipt == JOptionPane.NO_OPTION){

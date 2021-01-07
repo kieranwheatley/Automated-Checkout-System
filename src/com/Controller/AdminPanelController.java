@@ -3,9 +3,15 @@ package com.Controller;
 import com.Model.Product;
 import com.Model.StockDatabase;
 import com.View.AdminLogin;
+import com.View.AdminPanel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class AdminPanelController
@@ -26,7 +32,7 @@ public class AdminPanelController
         }
         if(!defaultListModel.isEmpty())
         {
-            JOptionPane.showMessageDialog(AdminLogin.getFrames()[0], defaultListModel, "Low stock levels! Please re-order.", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(AdminPanel.getFrames()[0], "Some item(s) have fallen below their minimum order levels. Please check the display and, if required, send off an automatically generated invoice for re-ordering.", "Warning: Low stock levels.", JOptionPane.PLAIN_MESSAGE);
         }
 
     }
@@ -101,5 +107,46 @@ public class AdminPanelController
             individualProduct.setBarcodes(temp);
         }
         StockDatabase.getInstance().stock.add(newProduct);
+    }
+    public void sendStockInvoice()
+    {
+        File invoice;
+        try
+        {
+            String invoiceName = String.valueOf(new Date().getTime());
+            File createInvoice = new File("src/resources/" + invoiceName + ".txt");
+            PrintWriter dataWriter = new PrintWriter(createInvoice);
+            double totalProductValue = 0.00;
+            DecimalFormat pound = new DecimalFormat("#0.00");
+
+//
+//            String date = new Date().toString();
+//            String fileName = "Invoice " + date;
+//            invoice = new File("src/resources/" + fileName + ".txt");
+//            FileWriter fileWriter = new FileWriter(invoice.getAbsoluteFile());
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//            PrintWriter writer = new PrintWriter(invoice.getAbsoluteFile());
+//            double totalProductValue = 0.00;
+            String header = "Food and Stuff Superstores\n1 Mutley Plain\n" +  "\n\n";
+            dataWriter.println(header);
+            for (Product p:StockDatabase.getInstance().stock) {
+
+                if (p.getStockLevel() <= p.getMinimumOrderLevel())
+                {
+                    int amountNeeded = p.getMinimumOrderLevel() * 2;
+
+                    String reorder = p.getName() + " | Quantity needed: " + amountNeeded + " | Price per Unit: " + p.getBuyPrice();
+                    totalProductValue = (totalProductValue + (p.getBuyPrice() * amountNeeded));
+                    dataWriter.println(reorder);
+                }
+            }
+            dataWriter.println("\n\nTotal invoice price: £" + pound.format(totalProductValue));
+            dataWriter.close();
+        }
+
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

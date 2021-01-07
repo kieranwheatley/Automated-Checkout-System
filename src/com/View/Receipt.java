@@ -1,13 +1,18 @@
 package com.View;
 
+import com.Controller.AudioController;
 import com.Controller.ReceiptController;
 import com.Controller.UserViewController;
 import com.Model.BasketDatabase;
+import javafx.scene.media.AudioClip;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Receipt extends JFrame{
     private JPanel JPanelReceipt;
@@ -17,6 +22,7 @@ public class Receipt extends JFrame{
     private UserViewController viewController;
     private BasketDatabase basketDatabase;
     private ReceiptController receiptController;
+    private AudioController audioController;
 
 
     public Receipt()
@@ -25,6 +31,7 @@ public class Receipt extends JFrame{
         viewController = new UserViewController();
         basketDatabase = new BasketDatabase();
         receiptController = new ReceiptController();
+        audioController = new AudioController();
 
 
         //Frame-related
@@ -33,8 +40,6 @@ public class Receipt extends JFrame{
         setPreferredSize(new Dimension(500, 400));
         receiptController.printReceipt(txtReceiptArea);
         pack();
-
-
 
         btnClose.addActionListener(new ActionListener() {
             @Override

@@ -1,5 +1,7 @@
 package com.Model;
 
+import com.Controller.AudioController;
+
 import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public final class BasketDatabase
     private double amountPaid = 0.00;
     private double leftToPay = 0.00;
     private boolean basketPaidFor = false;
+    private AudioController audioController;
 
     DecimalFormat pound = new DecimalFormat("#0.00");
 
@@ -31,7 +34,7 @@ public final class BasketDatabase
     public String generateHeader()
     {
         String dateTime = new Date().toString();
-        String receiptHeader = ("Food and Stuff Superstores\n1 Mutley Plain\n" + dateTime);
+        String receiptHeader = ("Food and Stuff Superstores\n1 Mutley Plain\n" + dateTime + "\n");
         return receiptHeader;
 
     }
@@ -40,7 +43,7 @@ public final class BasketDatabase
         DefaultListModel<String> receipt = new DefaultListModel<>();
         String header = generateHeader();
         String footer = generateFooter();
-        receipt.add(0, header);
+        receipt.addElement(header);
         for (int i = 1; i <= basket.size(); i++) {
             int index = i - 1;
             String itemInBasket = "\n" + basket.get(index).getName() + " | £" + pound.format(basket.get(index).getSalePrice());
@@ -49,7 +52,9 @@ public final class BasketDatabase
         int index = basket.size();
         index++;
         receipt.add(index, footer);
+        audioController = new AudioController();
         return receipt;
+
     }
 
     public String generateFooter()

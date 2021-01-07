@@ -3,15 +3,20 @@ import com.Model.Product;
 import com.Model.StockDatabase;
 import com.Model.BasketDatabase;
 import com.View.TillView;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class StockController
 {
+    public AudioController audioController;
     //Method for loading in the products list from stock.txt file
     public void loadStock()
     {
@@ -113,10 +118,11 @@ public class StockController
         stockView.setModel(lowStockList);
     }
     //Add the selected item manually to the basket
-    public void addProductToBasket(Integer item)
-    {
+    public void addProductToBasket(Integer item){
         if (StockDatabase.getInstance().stock.get(item).getStockLevel() > 0)
         {
+            audioController = new AudioController();
+            audioController.barcodeBeep();
             // !--- NEED TO CHANGE THIS - DO NOT REMOVE FROM DATABASE UNTIL PURCHASED ---!
             //!!______ NEED TO CHANGE, TAKE ITEM FROM BARCODE ARRAYLIST, NOT PRODUCT DATABASE!!!_________!!
             int lastIndex = StockDatabase.getInstance().stock.get(item).getStockLevel() - 1;
@@ -126,6 +132,7 @@ public class StockController
             StockDatabase.getInstance().stock.get(item).setBarcodes(temp);
             BasketDatabase.getInstance().basket.add(tempProduct);
             StockDatabase.getInstance().stock.get(item).setStockLevel(lastIndex);
+
         }
         else
             {
@@ -144,5 +151,15 @@ public class StockController
             totalPrice += Double.parseDouble(pound.format(itemPrice));
         }
         BasketDatabase.getInstance().setTotalCost(Double.parseDouble(pound.format(totalPrice)));
+    }
+    public void barcodeScanner()
+    {
+        Random randomInt = new Random();
+        int size = StockDatabase.getInstance().stock.size();
+        int randomBarcode = randomInt.nextInt(size);
+        addProductToBasket(randomBarcode);
+
+
+
     }
 }

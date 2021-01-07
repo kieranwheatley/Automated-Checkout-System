@@ -6,10 +6,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.*;
+import javax.sound.sampled.*;
 
+import com.Controller.AudioController;
 import com.Controller.StockController;
 import com.Controller.UserViewController;
 import com.Model.BasketDatabase;
+
 
 public class TillView extends JFrame
 {
@@ -33,6 +36,7 @@ public class TillView extends JFrame
     private DefaultListModel<String> basketList;
     private int selectedItemIndex;
     private TillView tillView;
+    private AudioController audioController;
 
 
     public TillView()
@@ -41,6 +45,7 @@ public class TillView extends JFrame
         tillView = this;
         UserViewController viewController = new UserViewController();
         StockController stockControl = new StockController();
+        audioController = new AudioController();
 
         DecimalFormat pound = new DecimalFormat("#0.00");
         availableStockList = new DefaultListModel<String>();
@@ -86,6 +91,17 @@ public class TillView extends JFrame
             public void actionPerformed(ActionEvent e) {
                 viewController.loadGUI();
                 viewController.changeView(tillView, viewController.paymentScreen);
+            }
+        });
+        btnScanBarcode.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                stockControl.barcodeScanner();
+                stockControl.displayBasket(basketList, JListBasket);
+                stockControl.displayStock(availableStockList, JListAvailable);
+                stockControl.priceCalculation();
+                lblTotalCost.setText("Total Cost: £" + pound.format(BasketDatabase.getInstance().getTotalCost()));
+                btnPayment.setEnabled(true);
             }
         });
     }

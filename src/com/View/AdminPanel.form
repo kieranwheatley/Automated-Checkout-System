@@ -33,30 +33,6 @@
               <text value="Add Product"/>
             </properties>
           </component>
-          <component id="bab2a" class="javax.swing.JButton" binding="processDeliveryButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Process Delivery"/>
-            </properties>
-          </component>
-          <component id="b73d" class="javax.swing.JButton" binding="createAdminButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Create Admin"/>
-            </properties>
-          </component>
-          <component id="20115" class="javax.swing.JButton" binding="removeProductButton" default-binding="true">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Remove Product"/>
-            </properties>
-          </component>
           <component id="7c75b" class="javax.swing.JLabel" binding="lblOptions">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -73,9 +49,25 @@
               <text value="Update Product"/>
             </properties>
           </component>
-          <component id="fec25" class="javax.swing.JButton" binding="orderStockButton" default-binding="true">
+          <component id="ba58b" class="javax.swing.JButton" binding="removeProductButton" default-binding="true">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Remove Product"/>
+            </properties>
+          </component>
+          <component id="b73d" class="javax.swing.JButton" binding="createAdminButton" default-binding="true">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Create Admin"/>
+            </properties>
+          </component>
+          <component id="3ed0c" class="javax.swing.JButton" binding="orderStockButton" default-binding="true">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Order Stock"/>
@@ -131,14 +123,6 @@
           </component>
         </children>
       </scrollpane>
-      <component id="68b9" class="javax.swing.JButton" binding="btnReorder">
-        <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Re-order low stock items"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

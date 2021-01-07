@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-public class AddEditProduct extends JFrame{
+public abstract class AddEditProduct extends JFrame{
     private JPanel JPanelAddEdit;
     private JLabel lblHeader;
     private JTextField txtName;
