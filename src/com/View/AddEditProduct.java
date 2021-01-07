@@ -1,6 +1,6 @@
 package com.View;
 
-import com.Controller.AddEditController;
+import com.Controller.AdminPanelController;
 import com.Controller.StockController;
 import com.Controller.UserViewController;
 import com.Model.StockDatabase;
@@ -21,7 +21,7 @@ public class AddEditProduct extends JFrame{
     private JLabel lblCostPerUnit;
     private JLabel lblSalePrice;
     private JLabel lblStockLevel;
-    private JPanel txtStockLevel;
+    private JPanel valuesPanel;
     private JTextField txtStock;
     private JLabel lblProductCode;
     private JTextField txtProductCode;
@@ -31,11 +31,15 @@ public class AddEditProduct extends JFrame{
     private JLabel lblSelectProduct;
     private JTextField txtMinimum;
     private JLabel lblMinimum;
+    private JButton btnRemove;
+    private JButton btnReturn;
     private AddEditProduct addProduct;
     private AddEditProduct editProduct;
+    private AddEditProduct removeProduct;
     private StockController stockController;
     private UserViewController viewController;
-    private AddEditController addEditController;
+    private AdminPanelController adminPanelController;
+    private JTextField[] textFields;
 
 
     public AddEditProduct() {
@@ -45,7 +49,7 @@ public class AddEditProduct extends JFrame{
     public void addProduct()
     {
         UserViewController viewController = new UserViewController();
-        addEditController = new AddEditController();
+        adminPanelController = new AdminPanelController();
         addProduct = this;
         stockController = new StockController();
         setContentPane(this.JPanelAddEdit);
@@ -53,36 +57,67 @@ public class AddEditProduct extends JFrame{
         setPreferredSize(new Dimension(600, 400));
         cmbProducts.setVisible(false);
         lblSelectProduct.setVisible(false);
+        btnReturn.setVisible(false);
+        lblHeader.setText("Add new product");
+        btnApply.setText("Apply Changes");
+        btnRemove.setVisible(false);
+        textFields = new JTextField[6];
+        textFields[0] = txtName;
+        textFields[1] = txtCost;
+        textFields[2] = txtSale;
+        textFields[3] = txtStock;
+        textFields[4] = txtMinimum;
+        textFields[5] = txtProductCode;
+        btnApply.setEnabled(true);
         pack();
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewController.loadGUI();
-                viewController.changeView(addProduct, viewController.till);
+                viewController.changeView(addProduct, viewController.adminPage);
+            }
+        });
+        btnApply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminPanelController.addProduct(textFields);
+                stockController.saveStock();
             }
         });
     }
+
+
+
     public void editProduct()
     {
         DecimalFormat pound = new DecimalFormat("#0.00");
         UserViewController viewController = new UserViewController();
-        addEditController = new AddEditController();
+        adminPanelController = new AdminPanelController();
         editProduct = this;
         stockController = new StockController();
         setContentPane(this.JPanelAddEdit);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 400));
         cmbProducts.setVisible(true);
+        textFields = new JTextField[6];
+        textFields[0] = txtName;
+        textFields[1] = txtCost;
+        textFields[2] = txtSale;
+        textFields[3] = txtStock;
+        textFields[4] = txtMinimum;
+        textFields[5] = txtProductCode;
         lblSelectProduct.setVisible(true);
         pack();
-        addEditController.loadProductsToEdit(cmbProducts);
+        adminPanelController.loadProductsToEdit(cmbProducts);
         btnApply.setText("Update Product");
+        btnReturn.setVisible(false);
+        btnRemove.setVisible(false);
+
         lblHeader.setText("Product Information - Update");
         cmbProducts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnApply.setEnabled(true);
-
                 txtName.setText(StockDatabase.getInstance().stock.get(cmbProducts.getSelectedIndex()).getName());
                 txtCost.setText(pound.format(StockDatabase.getInstance().stock.get(cmbProducts.getSelectedIndex()).getBuyPrice()));
                 txtSale.setText(pound.format(StockDatabase.getInstance().stock.get(cmbProducts.getSelectedIndex()).getSalePrice()));
@@ -94,15 +129,74 @@ public class AddEditProduct extends JFrame{
         btnApply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addEditController.applyProductEdit(txtName, txtCost, txtSale, txtStock, txtMinimum, txtProductCode, cmbProducts.getSelectedIndex());
+                adminPanelController.applyProductEdit(textFields, cmbProducts.getSelectedIndex());
+                stockController.saveStock();
             }
         });
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewController.loadGUI();
-                viewController.changeView(editProduct, viewController.till);
+                viewController.changeView(editProduct, viewController.adminPage);
             }
         });
+
+    }
+    public void removeProduct()
+    {
+        UserViewController viewController = new UserViewController();
+        adminPanelController = new AdminPanelController();
+        removeProduct = this;
+        stockController = new StockController();
+        setContentPane(this.JPanelAddEdit);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(600, 400));
+        cmbProducts.setVisible(true);
+        lblSelectProduct.setVisible(true);
+        txtName.setVisible(false);
+        txtCost.setVisible(false);
+        txtMinimum.setVisible(false);
+        txtProductCode.setVisible(false);
+        txtStock.setVisible(false);
+        valuesPanel.setVisible(false);
+        lblCostPerUnit.setVisible(false);
+        lblMinimum.setVisible(false);
+        lblName.setVisible(false);
+        lblSalePrice.setVisible(false);
+        lblStockLevel.setVisible(false);
+        lblProductCode.setVisible(false);
+        btnReturn.setVisible(true);
+        lblSelectProduct.setText("Select product to remove.");
+        pack();
+        adminPanelController.loadProductsToEdit(cmbProducts);
+        btnApply.setText("Remove Product");
+        btnApply.setVisible(true);
+        lblHeader.setText("Select product to remove.");
+        cmbProducts.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnRemove.setEnabled(true);
+
+            }
+        });
+
+        btnRemove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adminPanelController.removeItem(cmbProducts.getSelectedIndex());
+                cmbProducts.removeAllItems();
+                adminPanelController.loadProductsToEdit(cmbProducts);
+                stockController.saveStock();
+
+            }
+        });
+        btnReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewController.loadGUI();
+                viewController.changeView(removeProduct, viewController.adminPage);
+            }
+        });
+
     }
 }

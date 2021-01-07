@@ -48,7 +48,6 @@ public class StockController
                     //Set the initial objects ArrayList to the temp one, which now contains the extra item
                     tempProduct.setBarcodes(temp);
                 }
-
                 //Add the newly created Product object to the Stock Database for access within the till
                 StockDatabase.getInstance().stock.add(tempProduct);
             }
@@ -81,7 +80,6 @@ public class StockController
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
     }
     //Displaying the product available on the TillView form for manual selection of items.
     public void displayStock(DefaultListModel<String> defaultListModel, JList jList) {

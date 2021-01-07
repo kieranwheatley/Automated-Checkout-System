@@ -1,9 +1,6 @@
 package com.Controller;
-
 import com.Model.BasketDatabase;
-
 import javax.swing.*;
-;
 import java.text.DecimalFormat;
 
 public class PaymentController {
@@ -14,7 +11,6 @@ public class PaymentController {
 
 
     public String displayTotal() {
-        StockController stock = new StockController();
         String total = String.valueOf(BasketDatabase.getInstance().getTotalCost());
         return total;
     }
@@ -63,7 +59,8 @@ public class PaymentController {
         }
         else if(retry == JOptionPane.NO_OPTION)
         {
-
+            viewController.loadGUI();
+            viewController.changeView(current, viewController.till);
         }
     }
 }

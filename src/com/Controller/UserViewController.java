@@ -18,6 +18,7 @@ public class UserViewController
     //public AddEditProduct addEditProduct;
     public AddProduct addProduct;
     public EditProduct editProduct;
+    public RemoveProduct removeProduct;
 
     //Create new views
     public void loadGUI()
@@ -37,6 +38,8 @@ public class UserViewController
         //addEditProduct = new AddEditProduct();
         addProduct = new AddProduct();
         editProduct = new EditProduct();
+        removeProduct = new RemoveProduct();
+
     }
     //Method to change visible page to selected one
     public void changeView(JFrame currentView, JFrame newView)

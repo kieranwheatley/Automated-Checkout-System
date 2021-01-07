@@ -1,6 +1,7 @@
 package com.Controller;
 
 import com.Model.BasketDatabase;
+import com.Model.StockDatabase;
 
 import javax.swing.*;
 

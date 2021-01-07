@@ -3,11 +3,13 @@ package com.View;
 import com.Controller.PaymentController;
 import com.Controller.StockController;
 import com.Controller.UserViewController;
+import com.Model.BasketDatabase;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 public class Payment extends JFrame{
     private JLabel lblOrderTotal;
@@ -27,12 +29,13 @@ public class Payment extends JFrame{
         viewController = new UserViewController();
         stockControl = new StockController();
         paymentController = new PaymentController();
+        DecimalFormat pound = new DecimalFormat("#0.00");
 
         //Frame-related
         setContentPane(this.paymentPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(350, 200));
-        lblOrderTotal.setText("Total price: £" + paymentController.displayTotal());
+        lblOrderTotal.setText("Total price: £" + pound.format(BasketDatabase.getInstance().getTotalCost()));
         pack();
 
 

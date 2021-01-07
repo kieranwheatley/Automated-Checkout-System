@@ -6,6 +6,8 @@ import com.Model.BasketDatabase;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Receipt extends JFrame{
     private JPanel JPanelReceipt;
@@ -33,5 +35,14 @@ public class Receipt extends JFrame{
         pack();
 
 
+
+        btnClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BasketDatabase.getInstance().basket.clear();
+                viewController.loadGUI();
+                viewController.changeView(receipt, viewController.till);
+            }
+        });
     }
 }
