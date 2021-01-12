@@ -3,12 +3,8 @@ import com.Model.Product;
 import com.Model.StockDatabase;
 import com.Model.BasketDatabase;
 import com.View.TillView;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;

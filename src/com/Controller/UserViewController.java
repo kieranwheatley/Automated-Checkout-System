@@ -15,7 +15,6 @@ public class UserViewController
     public CashPayment cashPayment;
     public CardPayment cardPayment;
     public Receipt receipt;
-    //public AddEditProduct addEditProduct;
     public AddProduct addProduct;
     public EditProduct editProduct;
     public RemoveProduct removeProduct;
@@ -35,7 +34,6 @@ public class UserViewController
         cashPayment = new CashPayment();
         cardPayment = new CardPayment();
         receipt = new Receipt();
-        //addEditProduct = new AddEditProduct();
         addProduct = new AddProduct();
         editProduct = new EditProduct();
         removeProduct = new RemoveProduct();

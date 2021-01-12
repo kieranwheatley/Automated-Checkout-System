@@ -12,14 +12,10 @@ public final class BasketDatabase
 {
     private static BasketDatabase INSTANCE = null;
     public List<Product> basket = new ArrayList<Product>();
-    public Integer holder = 0;
     private double totalCost = 0.00;
-    private boolean paidFor = false;
     private boolean paidWithCard = false;
     private double amountPaid = 0.00;
     private double leftToPay = 0.00;
-    private boolean basketPaidFor = false;
-    private AudioController audioController;
 
     DecimalFormat pound = new DecimalFormat("#0.00");
 
@@ -52,7 +48,6 @@ public final class BasketDatabase
         int index = basket.size();
         index++;
         receipt.add(index, footer);
-        audioController = new AudioController();
         return receipt;
 
     }
@@ -106,19 +101,4 @@ public final class BasketDatabase
         this.totalCost = totalCost;
     }
 
-    public boolean isPaidFor() {
-        return paidFor;
-    }
-
-    public void setPaidFor(boolean paidFor) {
-        this.paidFor = paidFor;
-    }
-
-    public boolean isBasketPaidFor() {
-        return basketPaidFor;
-    }
-
-    public void setBasketPaidFor(boolean basketPaidFor) {
-        this.basketPaidFor = basketPaidFor;
-    }
 }

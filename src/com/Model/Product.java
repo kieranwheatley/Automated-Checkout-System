@@ -45,6 +45,12 @@ public class Product
         this.productCode = productCode;
     }
 
+    public Product() {
+        name = "test";
+        buyPrice = 0.01;
+        salePrice = 1.99;
+    }
+
     public String getName() {
         return name;
     }
@@ -98,10 +104,6 @@ public class Product
     {
         barcodes.add(adding);
     }
-    public void removeProduct(Product removing)
-    {
-        barcodes.remove(removing);
-    }
     public void setProductCode(int productCode) {
         this.productCode = productCode;
     }
@@ -125,7 +127,4 @@ public class Product
         return inBasket;
     }
 
-
-    public void setBarcodes() {
-    }
 }

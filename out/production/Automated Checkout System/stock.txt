@@ -7,13 +7,13 @@ Apple (single)
 Banana (single)
 0.02
 0.31
-38
+37
 40
 21141141
 Flour (1kg)
 0.14
 0.85
-26
+25
 25
 612152
 Basmati Rice (500g)
