@@ -17,15 +17,24 @@ The software must contain the following:
 * Must display the current scanned items with the item's names and prices, as well as the total running price for all.:heavy_check_mark:
 #### ___Payment Screen___
 * Customers are able to pay by either card or cash:heavy_check_mark:
-* Cash payment amount can be entered and it will calculate then display any change required:heavy_check_mark:
-* Card payments require a verification screen that displayes either an "Accept" or "Deny" message from their bank:heavy_check_mark:
+* Cash payment amount can be entered, and it will calculate then display any change required:heavy_check_mark:
+* Card payments require a verification screen that displays either an "Accept" or "Deny" message from their bank:heavy_check_mark:
 #### ___Receipt___
 * The receipt requires a printout of all item names and prices, the total price, and the payment method:heavy_check_mark:
 * If cash was used to pay, print the change amount:heavy_check_mark:
-* Receipt display ***must*** be in a seperate GUI panel:heavy_check_mark:
+* Receipt display ***must*** be in a separate GUI panel:heavy_check_mark:
 * Threading must be used to inject the receipt data into the panel and output like standard receipts:heavy_check_mark:
 * Receipt must include company name, date, and the information listed above:heavy_check_mark:
-* The receipt should be generated after the thread has fnished processing the receipt data:heavy_check_mark:
+* The receipt should be generated after the thread has finished processing the receipt data:heavy_check_mark:
+## Using the application
+The usage of the program itself is rather straightforward. You can select a product from the stock list and add it or you can use the "Scan Barcode" button to randomly select a product from the Stocks list.
+To use the admin section, there are currently two logins:
+* Username: sysadmin | password: adminpassword
+* Username: a | password: a (*this was used for quick access during development, and I've left it in, so it's easier for anyone using to remember.)*
+
+The project does not currently have a working .jar file due to issues with IntelliJ. I hope to add one after the assignment has been marked but for now, the program will only run in IntelliJ.
+
+Project SDK required: 1.8
 
 ## Author
 Kieran Wheatley

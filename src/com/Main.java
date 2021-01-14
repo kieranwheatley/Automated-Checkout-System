@@ -1,7 +1,5 @@
 package com;
-import com.*;
 import com.Controller.UserViewController;
-import com.View.TillView;
 
 public class Main
 {

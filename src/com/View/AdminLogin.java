@@ -6,17 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class AdminLogin extends JFrame{
     private JPanel adminLoginPanel;
     private JLabel lblHeader;
     private JLabel lblUsername;
     private JLabel lblPassword;
-    private JPasswordField pwfPassword;
     private JTextField txtUsername;
     private JButton btnReturn;
     private JButton btnLogin;
@@ -25,6 +20,7 @@ public class AdminLogin extends JFrame{
     private AdminPanelController adminController;
     private DefaultListModel<String> lowStock;
 
+    //Constructor for the AdminLogin page
     public AdminLogin()
     {
         UserViewController viewController = new UserViewController();
@@ -59,7 +55,7 @@ public class AdminLogin extends JFrame{
                     adminController.checkStockLevels(lowStock);
                 }
                 else {
-                    JOptionPane.showMessageDialog(adminLoginView.getFrames()[0], "Username and/or password are incorrect. Please try again.", "Login Failed.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(getFrames()[0], "Username and/or password are incorrect. Please try again.", "Login Failed.", JOptionPane.ERROR_MESSAGE);
                     txtUsername.setText("");
                     txtPassword.setText("");
                 }

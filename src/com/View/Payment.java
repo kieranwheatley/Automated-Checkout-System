@@ -19,16 +19,12 @@ public class Payment extends JFrame{
     private JPanel paymentPanel;
     private Payment payment;
     private UserViewController viewController;
-    private StockController stockControl;
-    private PaymentController paymentController;
 
 
     public Payment()
     {
         payment = this;
         viewController = new UserViewController();
-        stockControl = new StockController();
-        paymentController = new PaymentController();
         DecimalFormat pound = new DecimalFormat("#0.00");
 
         //Frame-related
@@ -54,7 +50,4 @@ public class Payment extends JFrame{
             }
         });
     }
-
-    //Declarations
-
 }

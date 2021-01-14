@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class StockController
 {
     public AudioController audioController;
+
     //Method for loading in the products list from stock.txt file
     public void loadStock()
     {
@@ -29,7 +30,6 @@ public class StockController
                 int stockLevel = Integer.parseInt(filereader.nextLine());
                 int minimumOrderLevel = Integer.parseInt(filereader.nextLine());
                 int productCode = Integer.parseInt(filereader.nextLine());
-                int barcode;
                 ArrayList<Product> barcodes = new ArrayList<Product>();
                 //Create a temporary product class, this is the MAIN object
                 Product tempProduct = new Product(name, buyPrice, salePrice, stockLevel, minimumOrderLevel, productCode, barcodes);
@@ -63,6 +63,8 @@ public class StockController
             e.printStackTrace();
         }
     }
+    //Method for writing to the stock file. This occurs when orders are completed or products are added, edited, and deleted to ensure the next time
+    //the program is launch, the data is correct
     public void saveStock()
     {
         try{
@@ -101,9 +103,9 @@ public class StockController
 
         jList.setModel(defaultListModel);
     }
+    //Method for displaying low stock within the admin panel
     public void displayLowStock(DefaultListModel<String> lowStockList, JList stockView)
     {
-        int lowItemAmount = 0;
         lowStockList.clear();
         for (Product product : StockDatabase.getInstance().stock) {
             if (product.getStockLevel() < product.getMinimumOrderLevel())
@@ -117,11 +119,13 @@ public class StockController
     public void addProductToBasket(Integer item){
         if (StockDatabase.getInstance().stock.get(item).getStockLevel() > 0)
         {
+            //Create a new audioController so we can call the barcodeBeep sound method
             audioController = new AudioController();
             audioController.barcodeBeep();
-            // !--- NEED TO CHANGE THIS - DO NOT REMOVE FROM DATABASE UNTIL PURCHASED ---!
-            //!!______ NEED TO CHANGE, TAKE ITEM FROM BARCODE ARRAYLIST, NOT PRODUCT DATABASE!!!_________!!
+            // Find the amount of barcode products inside the main product arraylist
             int lastIndex = StockDatabase.getInstance().stock.get(item).getStockLevel() - 1;
+            //We take the individual product from the main Product object and add it to the basket to ensure that the stock
+            //levels are always correct and composite pattern is enforced
             ArrayList<Product> temp = StockDatabase.getInstance().stock.get(item).getBarcodes();
             Product tempProduct = temp.get(lastIndex);
             temp.remove(item);
@@ -132,6 +136,7 @@ public class StockController
         }
         else
             {
+                //Simple user dialog that appears if a product cannot be added due to the stock being unavailable
             JOptionPane.showMessageDialog(TillView.getFrames()[0], "This item is unavailable and cannot be added to the order.");
         }
     }
@@ -148,6 +153,8 @@ public class StockController
         }
         BasketDatabase.getInstance().setTotalCost(Double.parseDouble(pound.format(totalPrice)));
     }
+    //Barcode scanner method, randomly selects a product from the StockDatabase and adds it to the basket. This is used in lieu of a real
+    //scanner being used.
     public void barcodeScanner()
     {
         Random randomInt = new Random();

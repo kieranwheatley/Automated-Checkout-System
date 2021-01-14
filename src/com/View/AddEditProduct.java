@@ -4,13 +4,14 @@ import com.Controller.AdminPanelController;
 import com.Controller.StockController;
 import com.Controller.UserViewController;
 import com.Model.StockDatabase;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
+//The actual View itself is abstract as this form has the base requirements we need but they change based on which version we use
+//The methods below call this and implement it differenlt between Add, Edit, or Removing products
 public abstract class AddEditProduct extends JFrame{
     private JPanel JPanelAddEdit;
     private JLabel lblHeader;
@@ -37,15 +38,10 @@ public abstract class AddEditProduct extends JFrame{
     private AddEditProduct editProduct;
     private AddEditProduct removeProduct;
     private StockController stockController;
-    private UserViewController viewController;
     private AdminPanelController adminPanelController;
     private JTextField[] textFields;
 
-
-    public AddEditProduct() {
-
-    }
-
+    //This methods constructs the view appropriately for adding a new product to the system
     public void addProduct()
     {
         UserViewController viewController = new UserViewController();
@@ -86,8 +82,7 @@ public abstract class AddEditProduct extends JFrame{
         });
     }
 
-
-
+    //This methods constructs the view appropriately for editing an existing product in the system
     public void editProduct()
     {
         DecimalFormat pound = new DecimalFormat("#0.00");
@@ -142,6 +137,7 @@ public abstract class AddEditProduct extends JFrame{
         });
 
     }
+    //This methods constructs the view appropriately for removing a product from the system
     public void removeProduct()
     {
         UserViewController viewController = new UserViewController();
@@ -176,7 +172,6 @@ public abstract class AddEditProduct extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 btnRemove.setEnabled(true);
-
             }
         });
 
@@ -187,7 +182,6 @@ public abstract class AddEditProduct extends JFrame{
                 cmbProducts.removeAllItems();
                 adminPanelController.loadProductsToEdit(cmbProducts);
                 stockController.saveStock();
-
             }
         });
         btnReturn.addActionListener(new ActionListener() {

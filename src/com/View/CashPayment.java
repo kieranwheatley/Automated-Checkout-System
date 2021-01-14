@@ -1,9 +1,6 @@
 package com.View;
-
 import com.Controller.PaymentController;
-import com.Controller.UserViewController;
 import com.Model.BasketDatabase;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,10 +18,9 @@ public class CashPayment extends JFrame{
     private JTextField txtCashAmount;
     private CashPayment cashPayment;
     private PaymentController paymentController;
-
+    //Constructor for the Cash Payment view
     public CashPayment()
     {
-        UserViewController viewController = new UserViewController();
         DecimalFormat pound = new DecimalFormat("#0.00");
         cashPayment = this;
         paymentController = new PaymentController();
@@ -33,6 +29,7 @@ public class CashPayment extends JFrame{
         setPreferredSize(new Dimension(400, 150));
         lblTotalToPay.setText("Total: £" + pound.format(BasketDatabase.getInstance().getTotalCost()));
         pack();
+        lblLeftToPay.setText("Remaining: £" + pound.format(BasketDatabase.getInstance().getTotalCost()));
 
         btnPay.addActionListener(new ActionListener() {
             @Override
@@ -40,7 +37,7 @@ public class CashPayment extends JFrame{
                 double paid = Double.parseDouble(txtCashAmount.getText());
                 paymentController.checkPaidAmount(paid, cashPayment);
                 lblHasPaid.setText("Total Paid: £" + pound.format(BasketDatabase.getInstance().getAmountPaid()));
-                lblLeftToPay.setText("Remaining: £" + pound.format(BasketDatabase.getInstance().getLeftToPay()));
+                lblLeftToPay.setText("Remaining: £" + pound.format(BasketDatabase.getInstance().getTotalCost() - BasketDatabase.getInstance().getAmountPaid()));
             }
         });
     }

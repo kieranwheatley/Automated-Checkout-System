@@ -1,37 +1,30 @@
 package com.Model;
-
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+//Audio player class for playing audio files (used for receipt printer noise and barcode scanner beep)
 public class AudioPlayer {
-    // to store current position
-    Long currentFrame;
+    //Clip variable - for holding our sound effect files
     Clip clip;
-
-    // current status of clip
-    String status;
-
     AudioInputStream audioInputStream;
-    static String filePath;
-
-    // constructor to initialize streams and clip
+    //Audio player constructor
     public AudioPlayer(String filePath)
             throws UnsupportedAudioFileException,
             IOException, LineUnavailableException
     {
-        // create AudioInputStream object
+        //Create an Audio Input Stream using the file path passed in
         audioInputStream =
                 AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
-        // create clip reference
+        //Get a clip reference
         clip = AudioSystem.getClip();
 
-        // open audioInputStream to the clip
+        //Opens the audio file
         clip.open(audioInputStream);
 
-
     }
+    //Play our audio file
     public void play() {
         clip.start();
     }

@@ -3,7 +3,6 @@ package com.View;
 import com.Controller.PaymentController;
 import com.Controller.UserViewController;
 import com.Model.BasketDatabase;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,15 +14,12 @@ public class CardPayment extends JFrame{
     private JButton btnDecline;
     private JLabel lblAcceptDecline;
     private CardPayment cardPayment;
-    private UserViewController viewController;
     private PaymentController paymentController;
 
-
-
+    //Constructor for the Card Payment view
     public CardPayment()
     {
         cardPayment = this;
-        viewController = new UserViewController();
         paymentController = new PaymentController();
         setContentPane(this.JPanelCard);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

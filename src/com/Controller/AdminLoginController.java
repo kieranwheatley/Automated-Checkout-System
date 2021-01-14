@@ -1,11 +1,9 @@
 package com.Controller;
-import com.Controller.*;
 import com.Model.*;
 import com.View.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminLoginController

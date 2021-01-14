@@ -1,14 +1,8 @@
 package com.Controller;
-
 import com.Model.AudioPlayer;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
-
 public class AudioController {
 
-
+    //Method for playing the barcode beep sound file, called when a product is added to the basket
     public void barcodeBeep()  {
         try
         {
@@ -26,6 +20,7 @@ public class AudioController {
 
         }
     }
+    //Method for playing the receipt printer sound file, called when we view a receipt
     public void receiptPrinting() {
         try
         {
@@ -43,6 +38,5 @@ public class AudioController {
 
         }
     }
-
 }
 

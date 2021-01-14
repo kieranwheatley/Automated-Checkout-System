@@ -1,21 +1,15 @@
 package com.Controller;
 import com.Model.BasketDatabase;
 import javax.swing.*;
-import java.text.DecimalFormat;
 
 public class PaymentController {
 
     UserViewController viewController = new UserViewController();
-    DecimalFormat pound = new DecimalFormat("#0.00");
     StockController stockController = new StockController();
     AudioController audioController = new AudioController();
 
-
-    public String displayTotal() {
-        String total = String.valueOf(BasketDatabase.getInstance().getTotalCost());
-        return total;
-    }
-
+    //Method for checking if the paid total is greater than the total amount owed, if it isn't then it keeps accepting input
+    //When it is equal to or greater than the total due, it will open the Dialog box asking whether or not they would like a receipt
     public void checkPaidAmount(double paidAmount, JFrame current) {
         double totalToPay = BasketDatabase.getInstance().getTotalCost();
         if (BasketDatabase.getInstance().getAmountPaid() == 0.00) {
@@ -37,6 +31,8 @@ public class PaymentController {
             }
         }
     }
+    //Method for accepting the card provided. Creates a dialog box asking if the user would like a receipt. If yes it takes them to the receipt view,
+    //if not, they return to the till.
     public void verifyCard(JFrame current) {
         BasketDatabase.getInstance().setPaidWithCard(true);
         int yesNoReceipt = JOptionPane.showConfirmDialog(null, "Would you like a receipt?", "Card authorised, payment successful!.", JOptionPane.YES_NO_OPTION);
@@ -54,6 +50,8 @@ public class PaymentController {
             viewController.changeView(current, viewController.till);
         }
     }
+    //Method for handling declined card payments. Custom Dialog box asks the user to retry or not. If they retry it opens a new dialog box telling them to insert
+    //a new card. If not, they return to the till.
     public void cardDeclined(JFrame current)
     {
         Object[] options = {"Retry", "Cancel"};

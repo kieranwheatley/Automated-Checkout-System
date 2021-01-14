@@ -23,7 +23,6 @@ public class AdminPanel extends JFrame
     private JButton addProductButton;
     private JButton updateProductButton;
     private JButton removeProductButton;
-    private JButton createAdminButton;
     private JButton btnReturn;
     private JLabel lblUser;
     private JLabel lblLowStock;
@@ -31,8 +30,7 @@ public class AdminPanel extends JFrame
     private JButton orderStockButton;
     private DefaultListModel<String> lowStockList;
     private AdminPanelController adminPanelController;
-
-
+    //Constructor for the Admin Panel view
     public AdminPanel()
     {
         UserViewController viewController = new UserViewController();
